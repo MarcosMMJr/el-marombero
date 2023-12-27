@@ -6,23 +6,22 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.elmarombero.data.model.ExerciseDataClass
-import com.example.elmarombero.data.model.ExerciseJoinTable
+import com.example.elmarombero.data.model.WorkoutExerciseJoin
 
 @Dao
 interface ExerciseDAO {
     @Insert
-    suspend fun insert(exercise: ExerciseDataClass)
+    suspend fun insert(exercise: ExerciseDataClass): Long
 
     @Query("SELECT * FROM exercise")
     suspend fun getAllExercises(): List<ExerciseDataClass>
 
-
-    @Query("SELECT * FROM exercise WHERE id IN (SELECT exerciseId FROM exercise_join_table WHERE workoutId = :workoutId)")
-    suspend fun getExercisesByWorkoutId(workoutId: Long): List<ExerciseDataClass>
+//    @Query("SELECT * FROM exercise WHERE id IN (SELECT * FROM exercise WHERE workoutId = :workoutId)")
+//    suspend fun getExercisesForWorkout(workoutId: Long): List<ExerciseDataClass>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertExerciseIntoWorkout(join: ExerciseJoinTable)
+    suspend fun insertExerciseIntoWorkout(join: WorkoutExerciseJoin)
 
     @Delete
-    suspend fun deleteExerciseFromWorkout(join: ExerciseJoinTable)
+    suspend fun deleteExerciseFromWorkout(join: WorkoutExerciseJoin)
 }

@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "workout")
 data class WorkoutDataClass(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    @PrimaryKey(autoGenerate = true) val id: Int,
     val name: String,
     val description: String,
-    val date: Long // Usar long para armazenar o timestamp
+    val date: String //TODO: Usar long para armazenar o timestamp
 )
