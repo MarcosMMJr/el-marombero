@@ -46,7 +46,8 @@ class MainActivity : AppCompatActivity() {
         exerciseDao = database.exerciseDAO()
         workoutExerciseJoinDao = database.workoutExerciseJoinDAO()
 
-        // Operações de banco de dados
+        //region Teste de execução do Banco de dados no console
+        /*
         GlobalScope.launch {
             val workoutId = workoutDao.insert(
                 WorkoutDataClass(
@@ -96,7 +97,7 @@ class MainActivity : AppCompatActivity() {
             val exercises = exerciseDao.getAllExercises()
 
             workoutWithExercises.forEach {
-                Log.d("MainActivity", "Exercise in Workout: ${it.workout}, ${it.exercises}")
+                Log.d("MainActivity", "Exercise in Workout ${it.workoutId}: ${it.name}, ${it.observations}")
             }
 
             workouts.forEach {
@@ -106,7 +107,23 @@ class MainActivity : AppCompatActivity() {
             exercises.forEach {
                 Log.d("MainActivity", "Exercise: ${it.name}, ${it.imageUrl}, ${it.observations}")
             }
+
+            // Atualizar dados
+            val updatedWorkout = workouts.first().copy(description = "Descrição atualizada do Treino Z")
+            workoutDao.updateWorkout(updatedWorkout)
+
+            // Deletar dados
+            val workoutToDelete = workouts.last()
+            workoutDao.deleteWorkout(workoutToDelete)
+
+            // Ler dados novamente para verificar atualizações e remoções
+            val updatedWorkouts = workoutDao.getAllWorkouts()
+            updatedWorkouts.forEach { workout ->
+                Log.d("MainActivity", "Updated Workout: ${workout.name}, ${workout.description}, ${workout.date}")
+            }
         }
+        */
+        //endregion
 
         val navView: BottomNavigationView = binding.navView
 
